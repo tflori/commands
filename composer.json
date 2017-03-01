@@ -1,0 +1,30 @@
+{
+  "name": "tflori/commands",
+  "description": "Extension of ulrichsg/getopt-php to support multiple commands",
+  "license": "MIT",
+  "require": {
+    "php": ">= 5.3.0",
+    "ulrichsg/getopt-php": "^2.3"
+  },
+  "require-dev": {
+    "php": ">= 7.0",
+    "phpunit/phpunit": "^5.6",
+    "mockery/mockery": "^0.9.6",
+    "squizlabs/php_codesniffer": "^2.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "tflori\\Commands\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "tflori\\Commands\\Test\\": "tests/"
+    }
+  },
+  "scripts": {
+    "code-style": "phpcs --standard=PSR2 src && phpcs --standard=PSR2 --ignore=Examples tests",
+    "test": "phpunit",
+    "coverage": "phpunit --coverage-text"
+  }
+}
