@@ -3,7 +3,7 @@
   "description": "Extension of ulrichsg/getopt-php to support multiple commands",
   "license": "MIT",
   "require": {
-    "php": ">= 5.3.0",
+    "php": ">= 5.6",
     "ulrichsg/getopt-php": "^2.3"
   },
   "require-dev": {
