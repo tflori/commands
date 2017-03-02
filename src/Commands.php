@@ -95,4 +95,12 @@ class Commands extends Getopt
     {
         $this->description = $description;
     }
+
+    /**
+     * @return Command
+     */
+    public function getCommand()
+    {
+        return $this->command;
+    }
 }

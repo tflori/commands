@@ -5,7 +5,6 @@ namespace tflori\Commands\Test\Commands;
 use PHPUnit\Framework\TestCase;
 use tflori\Commands\Command;
 use tflori\Commands\Commands;
-use tflori\Getopt\Getopt;
 use tflori\Getopt\Option;
 
 class ParseTest extends TestCase
@@ -65,5 +64,16 @@ class ParseTest extends TestCase
 
         self::assertSame(1, $commands->getOption('a'));
         self::assertSame(1, $commands->getOption('b'));
+    }
+
+    public function testStoresTheCalledCommand()
+    {
+        $commands = new Commands();
+        $command = new Command('help', 'Show the help for command', 'var_dump');
+        $commands->addCommand($command);
+
+        $commands->parse('help');
+
+        self::assertSame($command, $commands->getCommand());
     }
 }
