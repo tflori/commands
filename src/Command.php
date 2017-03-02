@@ -25,21 +25,21 @@ class Command
      * @param string   $name
      * @param string   $shortDescription
      * @param callable $handler
-     * @param string   $longDescription
      * @param array    $options
+     * @param string   $longDescription
      */
     public function __construct(
         $name,
         $shortDescription,
         callable $handler,
-        $longDescription = '',
-        array $options = array()
+        array $options = array(),
+        $longDescription = ''
     ) {
         $this->name             = $name;
         $this->shortDescription = $shortDescription;
         $this->handler          = $handler;
-        $this->longDescription  = $longDescription ?: $shortDescription;
         $this->options          = $options;
+        $this->longDescription  = $longDescription ?: $shortDescription;
     }
 
     /**
@@ -61,11 +61,14 @@ class Command
     }
 
     /**
+     * Get description
+     *
+     * @param bool $short
      * @return string
      */
-    public function getDescription()
+    public function getDescription($short = false)
     {
-        return $this->longDescription;
+        return $short ? $this->shortDescription : $this->longDescription;
     }
 
     /**
@@ -82,13 +85,5 @@ class Command
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getShortDescription()
-    {
-        return $this->shortDescription;
     }
 }

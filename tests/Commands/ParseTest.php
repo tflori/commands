@@ -3,9 +3,10 @@
 namespace tflori\Commands\Test\Commands;
 
 use PHPUnit\Framework\TestCase;
+use tflori\Commands\Command;
 use tflori\Commands\Commands;
-use Ulrichsg\Getopt\Getopt;
-use Ulrichsg\Getopt\Option;
+use tflori\Getopt\Getopt;
+use tflori\Getopt\Option;
 
 class ParseTest extends TestCase
 {
@@ -40,105 +41,29 @@ class ParseTest extends TestCase
         self::assertSame([], $commands->getOptions());
     }
 
-    public function testSplitsArgumentsString()
+    public function testThrowsErrorWhenOptionUnknown()
     {
         $commands = new Commands();
-        $commands->addOptions([
-            new Option('v', 'verbose')
-        ]);
 
-        $_SERVER['argv'] = ['/usr/bin/app'];
-        $commands->parse('-v --verbose');
+        self::expectException(\UnexpectedValueException::class);
+        self::expectExceptionMessage('Option \'b\' is unknown');
 
-        self::assertSame([
-            'v' => 2,
-            'verbose' => 2
-        ], $commands->getOptions());
+        $commands->parse('-b');
     }
 
-    public function testStringWithSingleQuotes()
+    public function testAddsOptionsFromCommand()
     {
-        $commands = new Commands();
-        $commands->addOptions([
-            new Option('a', 'optA', Getopt::REQUIRED_ARGUMENT),
-        ]);
+        $commands = new Commands([new Option('a', 'optA')]);
+        $commands->addCommand(new Command(
+            'test',
+            'test something',
+            'var_dump',
+            [new Option('b', 'optB')]
+        ));
 
-        $commands->parse('-a \'the value\'');
+        $commands->parse('-a test -b');
 
-        self::assertSame('the value', $commands->getOption('a'));
-    }
-
-    public function testStringWithDoubleQuotes()
-    {
-        $commands = new Commands();
-        $commands->addOptions([
-            new Option('a', 'optA', Getopt::REQUIRED_ARGUMENT),
-        ]);
-
-        $commands->parse('-a "the value"');
-
-        self::assertSame('the value', $commands->getOption('a'));
-    }
-
-    public function testSingleQuotesInString()
-    {
-        $commands = new Commands();
-        $commands->addOptions([
-            new Option('a', 'optA', Getopt::REQUIRED_ARGUMENT),
-        ]);
-
-        $commands->parse('-a "the \'"');
-
-        self::assertSame('the \'', $commands->getOption('a'));
-    }
-
-    public function testDoubleQuotesInString()
-    {
-        $commands = new Commands();
-        $commands->addOptions([
-            new Option('a', 'optA', Getopt::REQUIRED_ARGUMENT),
-        ]);
-
-        $commands->parse('-a \'the "\'');
-
-        self::assertSame('the "', $commands->getOption('a'));
-    }
-
-    public function testQuoteConcatenation()
-    {
-        $commands = new Commands();
-        $commands->addOptions([
-            new Option('a', 'optA', Getopt::REQUIRED_ARGUMENT),
-            new Option('b', 'optB', Getopt::REQUIRED_ARGUMENT),
-        ]);
-
-        $commands->parse('-a \'this uses \'"\'"\' inside single quote\' -b "this uses "\'"\'" inside double quote"');
-
-        self::assertSame('this uses \' inside single quote', $commands->getOption('a'));
-        self::assertSame('this uses " inside double quote', $commands->getOption('b'));
-    }
-
-    public function testLinefeedAsSeparator()
-    {
-        $commands = new Commands();
-        $commands->addOptions([
-            new Option('a', 'optA', Getopt::REQUIRED_ARGUMENT),
-        ]);
-
-        $commands->parse("-a\nvalue");
-
-        self::assertSame('value', $commands->getOption('a'));
-    }
-
-    public function testTabAsSeparator()
-    {
-        $commands = new Commands();
-        $commands->addOptions([
-            new Option('a', 'optA', Getopt::REQUIRED_ARGUMENT),
-        ]);
-
-        $commands->parse("-a\tvalue");
-
-        self::assertSame('value', $commands->getOption('a'));
+        self::assertSame(1, $commands->getOption('a'));
+        self::assertSame(1, $commands->getOption('b'));
     }
 }

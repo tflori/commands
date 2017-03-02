@@ -4,7 +4,7 @@ namespace tflori\Commands\Test;
 
 use PHPUnit\Framework\TestCase;
 use tflori\Commands\Command;
-use Ulrichsg\Getopt\Option;
+use tflori\Getopt\Option;
 
 class CommandTest extends TestCase
 {
@@ -24,8 +24,8 @@ class CommandTest extends TestCase
             'the-name',
             'a short description',
             array('\PDO', 'getAvailableDrivers'),
-            'a long description might be longer',
-            $this->options
+            $this->options,
+            'a long description might be longer'
         );
     }
 
@@ -36,7 +36,7 @@ class CommandTest extends TestCase
 
     public function testConstructorSavesDescription()
     {
-        self::assertSame('a short description', $this->command->getShortDescription());
+        self::assertSame('a short description', $this->command->getDescription(true));
     }
 
     public function testConstructorSavesLongDescription()
