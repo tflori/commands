@@ -28,6 +28,7 @@ class Commands extends Getopt
 
     public function parse($arguments = null)
     {
+        $this->command = null;
         parent::parse($arguments);
 
         if (count($this->getOperands()) > 0) {

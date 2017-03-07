@@ -76,4 +76,15 @@ class ParseTest extends TestCase
 
         self::assertSame($command, $commands->getCommand());
     }
+
+    public function testResetsTheCommand()
+    {
+        $commands = new Commands();
+        $commands->addCommand(new Command('help', 'Show the help for command', 'var_dump'));
+        $commands->parse('help');
+
+        $commands->parse('');
+
+        self::assertNull($commands->getCommand());
+    }
 }
