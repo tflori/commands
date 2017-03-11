@@ -2,7 +2,7 @@
 
 namespace tflori\Commands;
 
-use Ulrichsg\Getopt\Option;
+use tflori\Getopt\Option;
 
 class Command
 {
@@ -24,14 +24,14 @@ class Command
      *
      * @param string   $name
      * @param string   $shortDescription
-     * @param callable $handler
+     * @param mixed $handler
      * @param array    $options
      * @param string   $longDescription
      */
     public function __construct(
         $name,
         $shortDescription,
-        callable $handler,
+        $handler,
         array $options = array(),
         $longDescription = ''
     ) {
