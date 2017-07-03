@@ -4,7 +4,7 @@ namespace tflori\Commands\Test;
 
 use PHPUnit\Framework\TestCase;
 use tflori\Commands\Command;
-use tflori\Getopt\Option;
+use Ulrichsg\Getopt\Option;
 
 class CommandTest extends TestCase
 {

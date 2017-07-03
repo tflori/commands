@@ -2,7 +2,7 @@
 
 namespace tflori\Commands;
 
-use tflori\Getopt\Option;
+use Ulrichsg\Getopt\Option;
 
 class Command
 {

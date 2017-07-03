@@ -4,7 +4,7 @@
   "license": "MIT",
   "require": {
     "php": ">= 5.6",
-    "tflori/getopt-php": "^2.4"
+    "ulrichsg/getopt-php": "^2.4"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.6",

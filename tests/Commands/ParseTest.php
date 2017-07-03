@@ -5,7 +5,7 @@ namespace tflori\Commands\Test\Commands;
 use PHPUnit\Framework\TestCase;
 use tflori\Commands\Command;
 use tflori\Commands\Commands;
-use tflori\Getopt\Option;
+use Ulrichsg\Getopt\Option;
 
 class ParseTest extends TestCase
 {

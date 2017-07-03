@@ -2,7 +2,7 @@
 
 namespace tflori\Commands;
 
-use tflori\Getopt\Getopt;
+use Ulrichsg\Getopt\Getopt;
 
 class Commands extends Getopt
 {
